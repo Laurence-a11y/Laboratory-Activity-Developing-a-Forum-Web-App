@@ -1,0 +1,62 @@
+{{> header}}
+{{#discussion}}
+<p><a href="/">← All discussions</a></p>
+<article class="card opening">
+    <h1>{{title}}</h1>
+    <p class="meta">
+        <img class="avatar" src="{{avatar}}" alt="" width="32" height="32">
+        <strong>{{author}}</strong> · <time datetime="{{created_iso}}">{{created_utc}}</time>
+    </p>
+    <p class="message">{{body}}</p>
+</article>
+{{/discussion}}
+
+<h2>{{comment_count}} comments</h2>
+{{#some_hidden}}<p class="notice">Some comments are not shown because this discussion exceeded the display limit.</p>{{/some_hidden}}
+
+<ol class="comment-tree" aria-label="Comments">
+{{#comments}}
+    <li id="comment-{{id}}" class="comment indent-{{indent}}" data-depth="{{depth}}" data-parent="{{parent_id}}">
+        <article>
+            <p class="meta">
+                <img class="avatar" src="{{avatar}}" alt="" width="28" height="28">
+                <strong>{{author}}</strong>
+                <span class="depth" title="Displayed depth (top-level = 0)">Depth {{depth}}</span>
+                {{#indent_capped}}<span class="capped" title="Indentation is capped at depth 8">indent capped</span>{{/indent_capped}}
+                · <time datetime="{{created_iso}}">{{created_utc}}</time>
+                · <a href="#comment-{{id}}" class="permalink">#{{id}}</a>
+            </p>
+            {{#parent_author}}<p class="reply-to">↳ reply to <a href="#comment-{{parent_id}}">{{parent_author}} (#{{parent_id}})</a></p>{{/parent_author}}
+            <p class="message">{{body}}</p>
+            {{#logged_in}}{{#can_reply}}
+            <details class="reply">
+                <summary>Reply</summary>
+                <form method="post" action="/discussions/{{#discussion}}{{id}}{{/discussion}}/comments">
+                    <input type="hidden" name="csrf" value="{{csrf}}">
+                    <input type="hidden" name="parent_id" value="{{id}}">
+                    <label for="reply-{{id}}">Reply to {{author}}</label>
+                    <textarea id="reply-{{id}}" name="body" rows="3" maxlength="{{max_length}}" required></textarea>
+                    <button type="submit">Post reply</button>
+                </form>
+            </details>
+            {{/can_reply}}{{/logged_in}}
+        </article>
+    </li>
+{{/comments}}
+</ol>
+{{^comments}}<p>No comments yet.</p>{{/comments}}
+
+<section id="post-comment" class="card">
+    <h2>Add a top-level comment</h2>
+    {{#logged_in}}
+    <form method="post" action="/discussions/{{#discussion}}{{id}}{{/discussion}}/comments">
+        <input type="hidden" name="csrf" value="{{csrf}}">
+        <input type="hidden" name="parent_id" value="">
+        <label for="new-comment">Your comment</label>
+        <textarea id="new-comment" name="body" rows="4" maxlength="{{max_length}}" required></textarea>
+        <button type="submit">Post comment</button>
+    </form>
+    {{/logged_in}}
+    {{^logged_in}}<p><a href="/login">Log in</a> or <a href="/register">register</a> to comment or reply.</p>{{/logged_in}}
+</section>
+{{> footer}}

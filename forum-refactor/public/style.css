@@ -1,0 +1,50 @@
+:root {
+    --text: #1f2328; --muted: #5b636d; --line: #d4d9de; --bg: #ffffff; --soft: #f5f7f9;
+    --accent: #1659a0; --ok: #1a7f37; --bad: #b42318; --indent-step: 1.5rem;
+}
+* { box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; max-width: 62rem; margin: 0 auto; padding: 0 1rem; line-height: 1.5; color: var(--text); background: var(--bg); }
+a { color: var(--accent); }
+.site-header { border-bottom: 1px solid var(--line); margin-bottom: 1rem; }
+.site-header nav { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; padding: .75rem 0; }
+.brand { font-weight: 700; text-decoration: none; }
+.spacer { flex: 1; }
+.site-footer { border-top: 1px solid var(--line); margin-top: 2rem; color: var(--muted); font-size: .9rem; }
+.card { border: 1px solid var(--line); border-radius: .5rem; padding: 1rem; margin: 1rem 0; background: var(--bg); }
+.card h2 { margin: 0 0 .25rem; font-size: 1.15rem; }
+.opening h1 { margin-top: 0; }
+.narrow { max-width: 28rem; }
+.meta { color: var(--muted); font-size: .9rem; margin: 0; display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
+.meta strong { color: var(--text); }
+.avatar { border-radius: 50%; background: var(--soft); vertical-align: middle; }
+.message { white-space: pre-wrap; overflow-wrap: anywhere; margin: .4rem 0; }
+.notice { padding: .6rem .8rem; border-radius: .4rem; background: var(--soft); border: 1px solid var(--line); }
+.notice.success { border-color: var(--ok); color: var(--ok); }
+.notice.error, .error { border-color: var(--bad); color: var(--bad); }
+label, input, textarea { display: block; width: 100%; margin-top: .5rem; }
+input, textarea, button { font: inherit; padding: .5rem; }
+button { margin-top: .75rem; cursor: pointer; width: auto; border: 1px solid var(--accent); background: var(--accent); color: #fff; border-radius: .35rem; }
+.inline { display: inline; margin: 0; }
+.link-button { background: none; border: none; color: var(--accent); padding: 0; margin: 0; text-decoration: underline; }
+
+/* ---- Reply tree ----------------------------------------------------------
+   The tree is pre-flattened in depth-first order. Each item carries
+   indent-0 … indent-8; depth beyond 8 keeps indent-8 (capped) while the
+   "Depth N" label still shows the real depth. */
+.comment-tree { list-style: none; padding: 0; margin: 0; }
+.comment { margin: .5rem 0; padding: .6rem .8rem; border-left: 3px solid var(--line); background: var(--soft); border-radius: 0 .4rem .4rem 0; }
+.comment.indent-0 { margin-left: 0; border-left-color: var(--accent); background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--accent); }
+.comment.indent-1 { margin-left: calc(1 * var(--indent-step)); }
+.comment.indent-2 { margin-left: calc(2 * var(--indent-step)); }
+.comment.indent-3 { margin-left: calc(3 * var(--indent-step)); }
+.comment.indent-4 { margin-left: calc(4 * var(--indent-step)); }
+.comment.indent-5 { margin-left: calc(5 * var(--indent-step)); }
+.comment.indent-6 { margin-left: calc(6 * var(--indent-step)); }
+.comment.indent-7 { margin-left: calc(7 * var(--indent-step)); }
+.comment.indent-8 { margin-left: calc(8 * var(--indent-step)); }
+.depth { font-size: .75rem; padding: .05rem .45rem; border-radius: 1rem; background: #e7eef7; color: var(--accent); font-weight: 600; }
+.capped { font-size: .75rem; padding: .05rem .45rem; border-radius: 1rem; background: #fff4e5; color: #8a4b00; }
+.reply-to { margin: .2rem 0 0; font-size: .85rem; color: var(--muted); }
+.reply summary { cursor: pointer; color: var(--accent); font-size: .9rem; }
+.permalink { color: var(--muted); }
+@media (max-width: 40rem) { :root { --indent-step: .6rem; } }

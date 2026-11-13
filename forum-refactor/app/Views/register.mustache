@@ -1,0 +1,17 @@
+{{> header}}
+<h1>Create an account</h1>
+{{#error}}<p class="notice error" role="alert">{{error}}</p>{{/error}}
+<form method="post" action="/register" class="card narrow">
+    <input type="hidden" name="csrf" value="{{csrf}}">
+    <label for="username">Username <small>(3–30 letters, numbers or _)</small></label>
+    <input id="username" name="username" value="{{old_username}}" required minlength="3" maxlength="30" pattern="[A-Za-z0-9_]{3,30}" autocomplete="username">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" value="{{old_email}}" required maxlength="190" autocomplete="email">
+    <label for="password">Password <small>(at least 12 characters)</small></label>
+    <input id="password" name="password" type="password" required minlength="12" maxlength="72" autocomplete="new-password">
+    <label for="password_confirm">Confirm password</label>
+    <input id="password_confirm" name="password_confirm" type="password" required minlength="12" maxlength="72" autocomplete="new-password">
+    <button type="submit">Register</button>
+</form>
+<p>Already registered? <a href="/login">Log in</a>.</p>
+{{> footer}}

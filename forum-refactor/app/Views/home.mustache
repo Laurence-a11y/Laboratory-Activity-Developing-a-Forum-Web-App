@@ -1,0 +1,11 @@
+{{> header}}
+<h1>Discussions</h1>
+<p>Anyone may read. <a href="/login">Log in</a> or <a href="/register">register</a> to post.</p>
+{{#discussions}}
+<article class="card">
+    <h2><a href="/discussions/{{id}}">{{title}}</a></h2>
+    <p class="meta">Started by {{author}} · <time datetime="{{created_iso}}">{{created_utc}}</time> · {{comment_count}} comments</p>
+</article>
+{{/discussions}}
+{{^discussions}}<p>No discussions yet.</p>{{/discussions}}
+{{> footer}}
